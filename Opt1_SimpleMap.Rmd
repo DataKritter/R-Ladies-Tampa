@@ -1,0 +1,30 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(tidyverse)
+library(treemapify)
+library(readxl)
+
+parks <- read_xlsx("data/parks_areas.xlsx")
+```
+
+```{r}
+ggplot(parks, aes(area = pop, fill = as.factor(group), subgroup = park, label = area)) + 
+      geom_treemap() +
+      geom_treemap_text(place = "centre", alpha = 0.5, color = "white") +
+      geom_treemap_subgroup_border(colour = "white" ) +
+      facet_wrap(~park)
+```
+```{r}
+library(extrafont)
+parks %>%
+      mutate(bin = 1) %>%
+      ggplot(aes(x = park, y = bin, fill = pop, label = area)) +
+      geom_bar(stat = "identity") +
+      scale_fill_distiller(palette = "Spectral") +
+      geom_text(position = position_stack(vjust = 0.5), color = "white") +
+      NULL
+```
+

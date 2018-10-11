@@ -1,0 +1,17 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r setup}
+library(tidyverse)
+library(readr)
+events <- read_csv("data/events.csv", 
+                   col_types = cols(date = col_date(format = "%B %d, %Y")))
+
+
+us_presidents <- read_csv("data/us_presidents.csv", 
+                          col_types = cols(inauguration = col_date(format = "%B %d, %Y")))
+
+```
