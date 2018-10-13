@@ -146,7 +146,7 @@ $(document).ready(function () {
 </style>
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("Opt2_FirstTrees.Rmd");
+  window.initializeSourceEmbed("bankrates.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
@@ -178,17 +178,42 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KHJlYWRyKVxuZXZlbnRzIDwtIHJlYWRfY3N2KFwiZGF0YS9ldmVudHMuY3N2XCIsIFxuICAgICAgICAgICAgICAgICAgIGNvbF90eXBlcyA9IGNvbHMoZGF0ZSA9IGNvbF9kYXRlKGZvcm1hdCA9IFwiJUIgJWQsICVZXCIpKSlcbnVzX3ByZXNpZGVudHMgPC0gcmVhZF9jc3YoXCJkYXRhL3VzX3ByZXNpZGVudHMuY3N2XCIsIFxuICAgICAgICAgICAgICAgICAgICAgICAgICBjb2xfdHlwZXMgPSBjb2xzKGluYXVndXJhdGlvbiA9IGNvbF9kYXRlKGZvcm1hdCA9IFwiJUIgJWQsICVZXCIpKSlcbmBgYCJ9 -->
-<pre class="r"><code>library(tidyverse)
-library(readr)
-events &lt;- read_csv(&quot;data/events.csv&quot;, 
-                   col_types = cols(date = col_date(format = &quot;%B %d, %Y&quot;)))
-us_presidents &lt;- read_csv(&quot;data/us_presidents.csv&quot;, 
-                          col_types = cols(inauguration = col_date(format = &quot;%B %d, %Y&quot;)))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
+<pre class="r"><code>library(tidyverse)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXHUwMDFiWzM3beKUgOKUgCBcdTAwMWJbMW1BdHRhY2hpbmcgcGFja2FnZXNcdTAwMWJbMjJtIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCB0aWR5dmVyc2UgMS4yLjEg4pSA4pSAXHUwMDFiWzM5bVxuXHUwMDFiWzM3bVx1MDAxYlszMm3inJRcdTAwMWJbMzdtIFx1MDAxYlszNG1nZ3Bsb3QyXHUwMDFiWzM3bSAzLjAuMCAgICAgXHUwMDFiWzMybeKclFx1MDAxYlszN20gXHUwMDFiWzM0bXB1cnJyICBcdTAwMWJbMzdtIDAuMi41XG5cdTAwMWJbMzJt4pyUXHUwMDFiWzM3bSBcdTAwMWJbMzRtdGliYmxlIFx1MDAxYlszN20gMS40LjIgICAgIFx1MDAxYlszMm3inJRcdTAwMWJbMzdtIFx1MDAxYlszNG1kcGx5ciAgXHUwMDFiWzM3bSAwLjcuNlxuXHUwMDFiWzMybeKclFx1MDAxYlszN20gXHUwMDFiWzM0bXRpZHlyICBcdTAwMWJbMzdtIDAuOC4xICAgICBcdTAwMWJbMzJt4pyUXHUwMDFiWzM3bSBcdTAwMWJbMzRtc3RyaW5nclx1MDAxYlszN20gMS4zLjFcblx1MDAxYlszMm3inJRcdTAwMWJbMzdtIFx1MDAxYlszNG1yZWFkciAgXHUwMDFiWzM3bSAxLjEuMSAgICAgXHUwMDFiWzMybeKclFx1MDAxYlszN20gXHUwMDFiWzM0bWZvcmNhdHNcdTAwMWJbMzdtIDAuMy4wXHUwMDFiWzM5bVxuXHUwMDFiWzM3beKUgOKUgCBcdTAwMWJbMW1Db25mbGljdHNcdTAwMWJbMjJtIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCB0aWR5dmVyc2VfY29uZmxpY3RzKCkg4pSA4pSAXG5cdTAwMWJbMzFt4pyWXHUwMDFiWzM3bSBcdTAwMWJbMzRtZHBseXJcdTAwMWJbMzdtOjpcdTAwMWJbMzJtZmlsdGVyKClcdTAwMWJbMzdtIG1hc2tzIFx1MDAxYlszNG1zdGF0c1x1MDAxYlszN206OmZpbHRlcigpXG5cdTAwMWJbMzFt4pyWXHUwMDFiWzM3bSBcdTAwMWJbMzRtZHBseXJcdTAwMWJbMzdtOjpcdTAwMWJbMzJtbGFnKClcdTAwMWJbMzdtICAgIG1hc2tzIFx1MDAxYlszNG1zdGF0c1x1MDAxYlszN206OmxhZygpXHUwMDFiWzM5bVxuIn0= -->
+<pre><code>[37m── [1mAttaching packages[22m ─────────────────────────────────────── tidyverse 1.2.1 ──[39m
+[37m[32m✔[37m [34mggplot2[37m 3.0.0     [32m✔[37m [34mpurrr  [37m 0.2.5
+[32m✔[37m [34mtibble [37m 1.4.2     [32m✔[37m [34mdplyr  [37m 0.7.6
+[32m✔[37m [34mtidyr  [37m 0.8.1     [32m✔[37m [34mstringr[37m 1.3.1
+[32m✔[37m [34mreadr  [37m 1.1.1     [32m✔[37m [34mforcats[37m 0.3.0[39m
+[37m── [1mConflicts[22m ────────────────────────────────────────── tidyverse_conflicts() ──
+[31m✖[37m [34mdplyr[37m::[32mfilter()[37m masks [34mstats[37m::filter()
+[31m✖[37m [34mdplyr[37m::[32mlag()[37m    masks [34mstats[37m::lag()[39m</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZWFkeGwpXG5iYW5rcmF0ZXMgPC0gcmVhZF9leGNlbChcImJhbmtyYXRlcy54bHN4XCIsXG4gICAgICAgICAgICBjb2xfdHlwZXMgPSBjKFwiZGF0ZVwiLCBcInRleHRcIiwgXCJ0ZXh0XCIsIFwibnVtZXJpY1wiKSlcbmV2ZW50cyA8LSByZWFkX2V4Y2VsKFwidHJhbnNhY3Rpb25zLnhsc3hcIixcbiAgICAgICAgICAgIGNvbF90eXBlcyA9IGMoXCJkYXRlXCIsIFwidGV4dFwiLCBcInRleHRcIikpXG5gYGAifQ== -->
+<pre class="r"><code>library(readxl)
+bankrates &lt;- read_excel(&quot;bankrates.xlsx&quot;,
+            col_types = c(&quot;date&quot;, &quot;text&quot;, &quot;text&quot;, &quot;numeric&quot;))
+events &lt;- read_excel(&quot;transactions.xlsx&quot;,
+            col_types = c(&quot;date&quot;, &quot;text&quot;, &quot;text&quot;))</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuam9pbiA8LSBldmVudHMgJT4lXG4gICAgICBsZWZ0X2pvaW4oYmFua3JhdGVzKVxuYGBgIn0= -->
+<pre class="r"><code>join &lt;- events %&gt;%
+      left_join(bankrates)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBjKFwiZGF0ZVwiLCBcImN1cnJlbmN5XCIsIFwidHlwZVwiKVxuIn0= -->
+<pre><code>Joining, by = c(&quot;date&quot;, &quot;currency&quot;, &quot;type&quot;)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCmBgYHtyIHNldHVwfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShyZWFkcikKZXZlbnRzIDwtIHJlYWRfY3N2KCJkYXRhL2V2ZW50cy5jc3YiLCAKICAgICAgICAgICAgICAgICAgIGNvbF90eXBlcyA9IGNvbHMoZGF0ZSA9IGNvbF9kYXRlKGZvcm1hdCA9ICIlQiAlZCwgJVkiKSkpCgoKdXNfcHJlc2lkZW50cyA8LSByZWFkX2NzdigiZGF0YS91c19wcmVzaWRlbnRzLmNzdiIsIAogICAgICAgICAgICAgICAgICAgICAgICAgIGNvbF90eXBlcyA9IGNvbHMoaW5hdWd1cmF0aW9uID0gY29sX2RhdGUoZm9ybWF0ID0gIiVCICVkLCAlWSIpKSkKCmBgYA==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQpgYGB7cn0KbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkocmVhZHhsKQpiYW5rcmF0ZXMgPC0gcmVhZF9leGNlbCgiYmFua3JhdGVzLnhsc3giLAogICAgICAgICAgICBjb2xfdHlwZXMgPSBjKCJkYXRlIiwgInRleHQiLCAidGV4dCIsICJudW1lcmljIikpCgpldmVudHMgPC0gcmVhZF9leGNlbCgidHJhbnNhY3Rpb25zLnhsc3giLAogICAgICAgICAgICBjb2xfdHlwZXMgPSBjKCJkYXRlIiwgInRleHQiLCAidGV4dCIpKQpgYGAKCmBgYHtyfQojc3RhcnRpbmcgd2l0aCBhIGxlZnQgam9pbi4gIFRoaXMgb25seSBqb2lucyBleGFjdCBtYXRjaGVzCmpvaW4gPC0gZXZlbnRzICU+JQogICAgICBsZWZ0X2pvaW4oYmFua3JhdGVzKQoKI2Z1enp5am9pbiBsaWJyYXJ5IGFsbG93cyBpbnRlcnZhbCBqb2lucywgYnV0IHdlIG5lZWQgc3RhcnQgQU5EIGVuZCBkYXRlcywgc28gcHJvYmFibHkgbmVlZCB0byBkbyBzb21lIGNsZXZlciBtdXRhdGVzIHRvIGNyZWF0ZSB0aG9zZS4KI2luc3RhbGwucGFja2FnZXMoImZ1enp5am9pbiIpCiNsaWJyYXJ5KGZ1enp5am9pbikKCiNBbHNvIG5lZWQgdG8gZmlndXJlIG91dCBob3cgdG8gcmV0dXJuIE5VTEwgZm9yIGRhdGVzIG91dHNpZGUgb2YgcmFuZ2UKCgoKCmBgYAoK</div>
 
 
 

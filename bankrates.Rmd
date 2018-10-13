@@ -1,0 +1,30 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(tidyverse)
+library(readxl)
+bankrates <- read_excel("bankrates.xlsx",
+            col_types = c("date", "text", "text", "numeric"))
+
+events <- read_excel("transactions.xlsx",
+            col_types = c("date", "text", "text"))
+```
+
+```{r}
+#starting with a left join.  This only joins exact matches
+join <- events %>%
+      left_join(bankrates)
+
+#fuzzyjoin library allows interval joins, but we need start AND end dates, so probably need to do some clever mutates to create those.
+#install.packages("fuzzyjoin")
+#library(fuzzyjoin)
+
+#Also need to figure out how to return NULL for dates outside of range
+
+
+
+
+```
+

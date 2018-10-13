@@ -8,8 +8,6 @@ output: ioslides_presentation
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
-library(icon)      ## for FontAwesome icons (ozunconf17 project!)
-library(emo)       ## for emoji, obvs (github.com/hadley/emo)
 
 ```
 
